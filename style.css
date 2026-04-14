@@ -14,26 +14,28 @@ body {
     padding: 20px;
 }
 
-/* ヘッダー周りのデザイン */
+/* =======================================
+   ヘッダー周りのデザイン
+======================================= */
+/* ヘッダー全体の設定 */
 .header {
+    position: relative; /* これがロゴ配置の基準になります */
+    text-align: center;
+    padding-top: 50px; /* ロゴと重ならないよう、上側に少し余白を持たせます */
     margin-bottom: 20px;
 }
 
-.header h1 {
-    font-size: 24px;
-    color: #4d1001; /* 文字色もふちの色に合わせて統一感を出します */
-    margin-bottom: 10px;
+/* ロゴを左上に小さく配置 */
+.logo {
+    position: absolute; /* 親要素（.header）の左上を基準に固定 */
+    top: 10px;          /* 上から10px */
+    left: 10px;         /* 左から10px */
+    width: 60px;        /* サイズを小さく設定 */
+    height: auto;
+    z-index: 10;        /* 他の要素より手前に表示 */
 }
 
-.hero-image {
-    max-width: 100%;
-    width: 250px;
-    border-radius: 10px;
-    margin: 0 auto 15px;
-    display: block;
-}
-
-/* アーチタイトルのコンテナ */
+/* アーチタイトルのコンテナ（位置がずれないよう中央固定） */
 .arch-title-container {
     width: 100%;
     max-width: 400px;
@@ -54,7 +56,18 @@ body {
     letter-spacing: 2px;
 }
 
-/* フォームとガチャの枠組み */
+/* ガチャ画像 */
+.hero-image {
+    max-width: 100%;
+    width: 250px;
+    display: block;
+    margin: 0 auto 15px auto;
+    border-radius: 10px;
+}
+
+/* =======================================
+   フォームとガチャの枠組み
+======================================= */
 .form-container, .gacha-container {
     max-width: 400px;
     margin: 0 auto;
@@ -154,7 +167,9 @@ select {
     cursor: not-allowed;
 }
 
-/* ガチャ結果エリア */
+/* =======================================
+   ガチャ結果エリア
+======================================= */
 .user-status {
     margin-bottom: 20px;
     color: #4d1001;
