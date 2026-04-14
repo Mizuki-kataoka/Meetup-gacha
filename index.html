@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetupガチャ</title>
+</head>
+<body>
+    <h1>Meetupガチャ</h1>
+    <p>以下の項目に回答して、ガチャへ進んでください。</p>
+
+    <form action="lottery.html" method="GET">
+        
+        <div>
+            <label for="grad_year">卒年</label>
+            <select name="grad_year" id="grad_year" required>
+                <option value="" disabled selected>選択してください</option>
+                <option value="2027">27卒</option>
+                <option value="2028">28卒</option>
+                <option value="2029">29卒</option>
+                <option value="2030">30卒</option>
+            </select>
+        </div>
+
+        <div>
+            <label>文理</label>
+            <input type="radio" id="humanities" name="major_type" value="文系" required>
+            <label for="humanities">文系</label>
+            
+            <input type="radio" id="science" name="major_type" value="理系" required>
+            <label for="science">理系</label>
+        </div>
+
+        <div>
+            <button type="submit">次へ</button>
+        </div>
+
+    </form>
+</body>
+</html>
