@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ガチャを引く | Meetupガチャ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Meetupガチャ</h1>
+    
+    <header class="header">
+        <h1>Meetupガチャ</h1>
+    </header>
 
-    <p>あなたの属性：<strong id="user-info">読み込み中...</strong></p>
+    <main class="gacha-container">
+        
+        <div class="user-status">
+            <p>あなたの属性：<strong id="user-info">読み込み中...</strong></p>
+        </div>
 
-    <button id="draw-btn" disabled>データを読み込み中...</button>
+        <div class="action-group">
+            <button id="draw-btn" class="submit-btn" disabled>データを読み込み中...</button>
+        </div>
 
-    <div id="result-area"></div>
+        <div id="result-area" class="result-box"></div>
+
+    </main>
 
     <script>
         // ==========================================
