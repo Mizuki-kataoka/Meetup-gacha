@@ -33,6 +33,27 @@ body {
     display: block;
 }
 
+/* アーチタイトルのコンテナ */
+.arch-title-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* タイトル本体（SVG） */
+.arch-title {
+    width: 100%;
+    height: auto;
+}
+
+/* SVG内のテキストデザイン */
+.arch-title text {
+    fill: #4d1001;      /* ご指定のふちの色と同じブラウン */
+    font-size: 55px;    /* 以前より約1.5倍に大きく設定 */
+    font-weight: 900;   /* 太字に設定 */
+    letter-spacing: 2px;
+}
+
 /* フォームとガチャの枠組み */
 .form-container, .gacha-container {
     max-width: 400px;
