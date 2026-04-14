@@ -9,10 +9,23 @@
 <body>
     
     <header class="header">
-        <h1>Meetupガチャ</h1>
-        <img src="image/gacha.png" alt="ガチャのイメージ" class="hero-image">
-        <p>以下の項目に回答して、ガチャへ進んでください。</p>
-    </header>
+    <img src="shirucafe_logo.png" alt="知るカフェロゴ" class="logo">
+    
+    <div class="arch-title-container">
+        <svg viewBox="0 0 500 150" class="arch-title">
+            <path id="curve" d="M 50,120 Q 250,20 450,120" fill="transparent" />
+            <text width="500">
+                <textPath xlink:href="#curve" startOffset="50%" text-anchor="middle">
+                    Meetupガチャ
+                </textPath>
+            </text>
+        </svg>
+    </div>
+    
+    <img src="gacha.png" alt="ガチャのイメージ" class="hero-image">
+    
+    <p>以下の項目に回答して、ガチャへ進んでください。</p>
+</header>
 
     <main class="form-container">
         <form action="lottery.html" method="GET">
