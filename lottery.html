@@ -59,9 +59,7 @@
         async function loadGachaDataFromJSON() {
             try {
                 const response = await fetch('data.json');
-                if (!response.ok) {
-                    throw new Error("JSONファイルの読み込みに失敗しました");
-                }
+                if (!response.ok) throw new Error("JSONファイルの読み込みに失敗");
                 const jsonData = await response.json();
                 const pools = {};
                 
@@ -73,37 +71,60 @@
 
                     if (!itemName) return;
 
-                    const grads = (gradRaw.includes("共通") || gradRaw === "") 
-                        ? ["2027", "2028", "2029", "2030"] 
-                        : gradRaw.split(/[,、\s]+/);
-
-                    const majors = (majorRaw.includes("共通") || majorRaw === "") 
-                        ? ["文系", "理系"] 
-                        : majorRaw.split(/[,、\s]+/);
+                    const grads = (gradRaw.includes("共通") || gradRaw === "") ? ["2027", "2028", "2029", "2030"] : gradRaw.split(/[,、\s]+/);
+                    const majors = (majorRaw.includes("共通") || majorRaw === "") ? ["文系", "理系"] : majorRaw.split(/[,、\s]+/);
 
                     grads.forEach(grad => {
                         majors.forEach(major => {
                             const key = `${grad.trim()}_${major.trim()}`;
                             if (!pools[key]) pools[key] = [];
-                            pools[key].push({
-                                name: itemName,
-                                image: itemImage
-                            });
+                            pools[key].push({ name: itemName, image: itemImage });
                         });
                     });
                 });
-
                 return pools;
             } catch (error) {
                 console.error("エラー:", error);
-                alert("データの読み込みに失敗しました。サーバー上で実行しているか、JSONの形式を確認してください。");
+                alert("データの読み込みに失敗しました。");
                 return {};
             }
         }
 
+        // ==========================================
+        // 3. ページ読み込み時の処理（1日1回チェック）
+        // ==========================================
         window.addEventListener("DOMContentLoaded", async () => {
-            gachaPools = await loadGachaDataFromJSON();
             const btn = document.getElementById('draw-btn');
+            const timeDisplay = document.getElementById('draw-time');
+            const resultArea = document.getElementById('result-area');
+
+            // 今日の日付を取得（例： "2026-4-15"）
+            const now = new Date();
+            const todayStr = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+
+            // ブラウザに保存されている「最後に引いた日付」を取得
+            const lastDrawDate = localStorage.getItem('meetupGachaDate');
+
+            // もし「最後に引いた日付」が「今日」と同じなら、ガチャをブロックする
+            if (lastDrawDate === todayStr) {
+                btn.disabled = true;
+                btn.textContent = "本日はプレイ済みです（1日1回）";
+
+                // 間違えてページを閉じた・リロードした人のために、今日引いた結果を復元する
+                const savedTime = localStorage.getItem('meetupGachaTime');
+                const savedResult = localStorage.getItem('meetupGachaResult');
+
+                if (savedTime && savedResult) {
+                    timeDisplay.textContent = savedTime;
+                    timeDisplay.style.display = 'block';
+                    resultArea.innerHTML = savedResult;
+                    resultArea.style.display = 'block';
+                }
+                return; // ここで処理を終了し、新しいガチャデータは読み込まない
+            }
+
+            // まだ今日引いていない場合は、通常通りガチャの準備をする
+            gachaPools = await loadGachaDataFromJSON();
             
             if (Object.keys(gachaPools).length > 0) {
                 btn.disabled = false;
@@ -114,7 +135,7 @@
         });
 
         // ==========================================
-        // 3. ガチャを引く処理
+        // 4. ガチャを引くボタンを押した時の処理
         // ==========================================
         document.getElementById('draw-btn').addEventListener('click', function () {
             const userKey = `${gradYearValue}_${majorType}`;
@@ -125,17 +146,18 @@
                 return;
             }
 
-            // ▼ 追加：時刻を取得して表示する処理 ▼
+            // 時刻の生成
             const now = new Date();
             const y = now.getFullYear();
             const m = now.getMonth() + 1;
             const d = now.getDate();
-            const h = String(now.getHours()).padStart(2, '0'); // 1桁の場合は0を埋める (例: 09)
+            const h = String(now.getHours()).padStart(2, '0');
             const min = String(now.getMinutes()).padStart(2, '0');
             
+            const timeText = `抽選した時間：${y}年${m}月${d}日 ${h}:${min}`;
             const timeDisplay = document.getElementById('draw-time');
-            timeDisplay.textContent = `${y}年${m}月${d}日 ${h}:${min}`;
-            timeDisplay.style.display = 'block'; // 時刻を表示
+            timeDisplay.textContent = timeText;
+            timeDisplay.style.display = 'block';
 
             // ガチャの抽選
             const randomIndex = Math.floor(Math.random() * targetPool.length);
@@ -143,17 +165,14 @@
 
             const resultArea = document.getElementById('result-area');
             
-            // 企業名
             let htmlContent = `<div style="font-size: 22px; margin-bottom: 15px;">${resultData.name}</div>`;
             
-            // 画像
             if (resultData.image) {
                 htmlContent += `<div>
                                     <img src="image/${resultData.image}" alt="${resultData.name}の画像" style="max-width: 100%; height: auto; border-radius: 5px;">
                                 </div>`;
             }
 
-            // ▼ 追加：特典案内のテキスト ▼
             htmlContent += `<div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #4d1001; font-size: 14px; font-weight: normal; color: #d32f2f; line-height: 1.5; text-align: left;">
                                 🎁 <strong>特典のご案内</strong><br>
                                 この画像または企業のMeetupを画像提示の上、本日中に店頭で予約していただいた方に特典を差し上げます！
@@ -161,6 +180,16 @@
 
             resultArea.innerHTML = htmlContent;
             resultArea.style.display = 'block';
+
+            // ▼ 今回の追加：引いた「日付」「時刻」「結果の中身」をブラウザに保存する ▼
+            const todayStr = `${y}-${m}-${d}`;
+            localStorage.setItem('meetupGachaDate', todayStr);
+            localStorage.setItem('meetupGachaTime', timeText);
+            localStorage.setItem('meetupGachaResult', htmlContent);
+
+            // 連続で押せないようにボタンを無効化する
+            this.disabled = true;
+            this.textContent = "本日はプレイ済みです（1日1回）";
         });
     </script>
 </body>
