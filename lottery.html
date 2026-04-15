@@ -23,6 +23,8 @@
             <button id="draw-btn" class="submit-btn" disabled>データを読み込み中...</button>
         </div>
 
+        <div id="draw-time" style="margin-top: 20px; font-weight: bold; color: #4d1001; display: none; text-align: center; font-size: 15px;"></div>
+
         <div id="result-area" class="result-box"></div>
 
     </main>
@@ -56,13 +58,11 @@
 
         async function loadGachaDataFromJSON() {
             try {
-                // 外部の data.json ファイルを読み込む
                 const response = await fetch('data.json');
                 if (!response.ok) {
                     throw new Error("JSONファイルの読み込みに失敗しました");
                 }
                 const jsonData = await response.json();
-
                 const pools = {};
                 
                 jsonData.forEach(item => {
@@ -73,7 +73,6 @@
 
                     if (!itemName) return;
 
-                    // 共通設定や複数年の分割処理
                     const grads = (gradRaw.includes("共通") || gradRaw === "") 
                         ? ["2027", "2028", "2029", "2030"] 
                         : gradRaw.split(/[,、\s]+/);
@@ -126,18 +125,39 @@
                 return;
             }
 
+            // ▼ 追加：時刻を取得して表示する処理 ▼
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = now.getMonth() + 1;
+            const d = now.getDate();
+            const h = String(now.getHours()).padStart(2, '0'); // 1桁の場合は0を埋める (例: 09)
+            const min = String(now.getMinutes()).padStart(2, '0');
+            
+            const timeDisplay = document.getElementById('draw-time');
+            timeDisplay.textContent = `${y}年${m}月${d}日 ${h}:${min}`;
+            timeDisplay.style.display = 'block'; // 時刻を表示
+
+            // ガチャの抽選
             const randomIndex = Math.floor(Math.random() * targetPool.length);
             const resultData = targetPool[randomIndex];
 
             const resultArea = document.getElementById('result-area');
             
-            let htmlContent = `<div>${resultData.name}</div>`;
+            // 企業名
+            let htmlContent = `<div style="font-size: 22px; margin-bottom: 15px;">${resultData.name}</div>`;
             
+            // 画像
             if (resultData.image) {
-                htmlContent += `<div style="margin-top: 15px;">
-                                    <img src="image/${resultData.image}" alt="${resultData.name}の画像" style="max-width: 100%; height: auto;">
+                htmlContent += `<div>
+                                    <img src="image/${resultData.image}" alt="${resultData.name}の画像" style="max-width: 100%; height: auto; border-radius: 5px;">
                                 </div>`;
             }
+
+            // ▼ 追加：特典案内のテキスト ▼
+            htmlContent += `<div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #4d1001; font-size: 14px; font-weight: normal; color: #d32f2f; line-height: 1.5; text-align: left;">
+                                🎁 <strong>特典のご案内</strong><br>
+                                この画像または企業のMeetupを画像提示の上、本日中に店頭で予約していただいた方に特典を差し上げます！
+                            </div>`;
 
             resultArea.innerHTML = htmlContent;
             resultArea.style.display = 'block';
