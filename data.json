@@ -19,92 +19,80 @@
   },
   {
     "grad": "2030",
-    "major"： "理系",
-    "name":"パーソルAVCテクノロジー株式会社",
-    "image": "IMG_1863. PNG"
+    "major": "理系",
+    "name": "パーソルAVCテクノロジー株式会社",
+    "image": "IMG_1863.PNG"
   },
   {
     "grad": "2028",
-    "major"： "共通",
-    "name":
-    "パーソルAVCテクノロジー株式会社",
-    "image": "IMG_1864. PNG"
+    "major": "共通",
+    "name": "パーソルAVCテクノロジー株式会社",
+    "image": "IMG_1864.PNG"
   },
   {
     "grad": "2027, 2028",
-    "major"： "理系",
-    "name":
-    "レジル株式会社"、
-    "image": "IMG_1865. PNG"
-   },
+    "major": "理系",
+    "name": "レジル株式会社",
+    "image": "IMG_1865.PNG"
+  },
   {
     "grad": "2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "アコム株式会社",
-    "image": "IMG_1866. PNG"
+    "major": "共通",
+    "name": "アコム株式会社",
+    "image": "IMG_1866.PNG"
   },
   {
     "grad": "2027, 2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "株式会社高松コンストラクショングループ",
-    "image": "IMG_1867. PNG"
+    "major": "共通",
+    "name": "株式会社高松コンストラクショングループ",
+    "image": "IMG_1867.PNG"
   },
   {
     "grad": "2027, 2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "株式会社ジェイック"
-    "image": "IMG_1868. PNG"
+    "major": "共通",
+    "name": "株式会社ジェイック",
+    "image": "IMG_1868.PNG"
   },
   {
     "grad": "2027, 2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "ユナイトアンドグロウ株式会社",
-    "image": "IMG_1869. PNG"
+    "major": "共通",
+    "name": "ユナイトアンドグロウ株式会社",
+    "image": "IMG_1869.PNG"
   },
   {
     "grad": "2028",
-    "major"： "共通",
-    "name":
-    "ヒューリック株式会社",
-    "image": "IMG_1870. PNG"
+    "major": "共通",
+    "name": "ヒューリック株式会社",
+    "image": "IMG_1870.PNG"
   },
   {
     "grad": "2027, 2028",
-    "major"： "共通",
-    "name":
-    "株式会社川田テクノシステム",
-    "image": "IMG_1871. PNG"
+    "major": "共通",
+    "name": "株式会社川田テクノシステム",
+    "image": "IMG_1871.PNG"
   },
   {
     "grad": "2028",
-    "major"： "理系",
-    "name":
-    "IDEC株式会社",
-    "image": "IMG_1872. PNG"
+    "major": "理系",
+    "name": "IDEC株式会社",
+    "image": "IMG_1872.PNG"
   },
   {
     "grad": "2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "東京都",
-    "image": "IMG_1875. PNG"
+    "major": "共通",
+    "name": "東京都",
+    "image": "IMG_1875.PNG"
   },
   {
     "grad": "2027, 2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "株式会社ハックルベリー",
-    "image": "IMG_1876. PNG"
+    "major": "共通",
+    "name": "株式会社ハックルベリー",
+    "image": "IMG_1876.PNG"
   },
   {
     "grad": "2027, 2028, 2029, 2030",
-    "major"： "共通",
-    "name":
-    "株式会社マイクロニティ",
-    "image": "IMG_1877. PNG"
+    "major": "共通",
+    "name": "株式会社マイクロニティ",
+    "image": "IMG_1877.PNG"
   }
 ]
