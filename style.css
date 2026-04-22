@@ -54,6 +54,9 @@ body {
     font-size: 55px;    /* 以前より約1.5倍に大きく設定 */
     font-weight: 900;   /* 太字に設定 */
     letter-spacing: 2px;
+    font-family: "DotGothic16", sans-serif;
+}
+
 }
 
 /* ガチャ画像 */
